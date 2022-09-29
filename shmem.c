@@ -10,7 +10,7 @@ int main()
 {   
     
     /* create the shared memory object */
-    int mem_fd=shm_open("/asdf", O_CREAT | O_RDWR,0666);
+    int mem_fd=shm_open("/sharedmem", O_CREAT | O_RDWR, 0666);
     /* configure the size of the shared memory object */
     ftruncate(mem_fd, sizeof(char)*100);
     /* pointer to shared memory object */
@@ -19,7 +19,7 @@ int main()
     ptr = mmap(0, sizeof(char)*100, PROT_READ | PROT_WRITE, MAP_SHARED, mem_fd, 0);
 
     /* strings written to shared memory */
-    const char* message_0 = "Hello\n";
+    const char* message_0 = "Howdy guys\n";
     /* write to the shared memory object */
     sprintf(ptr, "%s", message_0);
     
@@ -28,7 +28,7 @@ int main()
     start = clock();
     scanf("%d", &nuim);  
     end = clock();
-    shm_unlink("/asdf");
+    shm_unlink("/sharedmem");
     double ticks = (double)(end - start) / (double)(CLOCKS_PER_SEC);
     printf("El proceso tardo %lf. \n", ticks);
     return 0;
