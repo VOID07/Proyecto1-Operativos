@@ -77,8 +77,8 @@ struct pixel fill_pixel_data (unsigned char *image_data, int width, int channels
 /*Cuando se ejecuta este proceso debe de recibir 2 parametros, que corresponden a los siguientes
 datos: modo de ejecucion, y la clave.*/
 int main(int argc, char *argv[]){
-
-    const int width = 200; //deberíamos pasarle de alguna forma estos datos desde el encodificador
+    //valores de prueba
+    const int width = 100; //deberíamos pasarle de alguna forma estos datos desde el encodificador
     const int height = 100;
     #define CHANNEL_NUM 1
 
@@ -91,27 +91,44 @@ int main(int argc, char *argv[]){
     //--------------------------------------------------------------------
 
     //uint8_t* pixels = new uint8_t[width * height * CHANNEL_NUM];
-    uint8_t* pixels = malloc(width * height * CHANNEL_NUM *sizeof(uint8_t));
+    
+    size_t img_size = width * height * CHANNEL_NUM;
+
+    unsigned char *pixels_img = malloc(img_size);
+    if(pixels_img == NULL) {
+        printf("Unable to allocate memory for the gray image.\n");
+        exit(1);
+    }
+
+    //uint8_t* pixels = malloc(width * height * CHANNEL_NUM *sizeof(uint8_t));
 
 
     int index = 0;
+    uint8_t pixel_decoded;
+    //valor de prueba
+    pixel_decoded = 128;
     for (int j = height - 1; j >= 0; --j)
     {
     for (int i = 0; i < width; ++i)
     {
 
-    uint8_t pixel_decoded = pixeln.encoded_pixel_value^key; /*Aquí se debe obtener los datos de la estructura guardada en memoria compartida
+    /*uint8_t pixel_decoded = pixeln.encoded_pixel_value^key; /*Aquí se debe obtener los datos de la estructura guardada en memoria compartida
                                                               y se decodifica el valor del pixel para almacenarlo en el nuevo vector con la data*/
 
-    pixels[index++] = pixel_decoded;
+    pixels_img [index++] = pixel_decoded;
+    
+    //Datos del pixel extraído de memoria compartida
+    printf("Pixel value: %s%s, Encoded pixel value: %s%s, índice: %d, índice %d \n", bit_rep[pixeln.pixel_value >> 4],bit_rep[pixeln.pixel_value & 0x0F], bit_rep[pixeln.encoded_pixel_value >> 4],bit_rep[pixeln.encoded_pixel_value & 0x0F], pixeln.i, pixeln.j);
+    //Se muestra la fecha formateada para verificar que se esté guardando correctamente en el struct
+    get_date(pixeln.date);
 
     }
     }
     
     // You have to use 3 comp for complete jpg file. If not, the image will be grayscale or nothing.
-    stbi_write_jpg("image.jpg", width, height, 1, pixels, 100);
+    stbi_write_jpg("image.jpg", width, height, 1, pixels_img, 100);
 
-    free(pixels);
+    free(pixels_img);
 
     return 0;
 
