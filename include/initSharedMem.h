@@ -8,8 +8,10 @@
 #include <unistd.h>         /* Allows ftruncate*/
 #include <time.h>
 #include <semaphore.h>      /* Allows the usage of the semaphore*/
+#include "pixelStruct.h"
+#include "ENV.h"
 
-void initMem(int *, int *, int *);
+void initMem(int*, const char* );
 int main(int, char **);
 
 #endif

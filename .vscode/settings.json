@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "stat.h": "c",
-        "mman.h": "c"
+        "mman.h": "c",
+        "pixelstruct.h": "c"
     }
 }
