@@ -21,7 +21,8 @@ int main(int argc, char * argv[]){  // Name, num
      shmat (int shmid, char * shmaddr, int shmflg)
 
     return 0;
-    
+
 }
 
 // gcc shmem.c -o shared -Wall -lrt
+ git commit --date='year-month-day hour:minutes:seconds' -m "message"

@@ -7,7 +7,7 @@
 #include <fcntl.h>           /* For O_* constants */
 #include <unistd.h>         /* Allows ftruncate*/
 
-void initMem();
-int main();
+int push();
+int pop();
 
 #endif
