@@ -1,4 +1,4 @@
-#include "../include/memoryWraper.h"
+#include "../include/memoryWrapper.h"
 
 struct pixel * shared_memory_ptr;
 sem_t * shared_semaphore_ptr;
@@ -44,3 +44,9 @@ int init(){
 
     return 0;
 }
+
+int main(){
+    return 0;
+}
+
+// gcc memoryWrapper.c -o wrapper -Wall -lrt -lpthread

@@ -1,4 +1,14 @@
 #include "../include/initSharedMem.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/mman.h>
+#include <sys/stat.h>        /* For mode constants */
+#include <fcntl.h>           /* For O_* constants */
+#include <unistd.h>         /* Allows ftruncate*/
+#include <time.h>
+#include <semaphore.h>      /* Allows the usage of the semaphore*/
+#include "../include/pixelStruct.h"
+#include "../include/ENV.h"
 
 void initMem(int* mem_fd, const char * name){
 
@@ -18,7 +28,7 @@ int main(int argc, char * argv[]){  // Name, num
     unsigned int* ptr_chunk_size;
     unsigned int* ptr_reader; // Shared counter for the encoder
     unsigned int* ptr_writer; // Shared counter for the decoder
-    void* ptr_sem;
+    sem_t* ptr_sem;
     
     chunk_size =  atoi(argv[1]); // Reads first parameter to load as chunk size
 
@@ -39,7 +49,7 @@ int main(int argc, char * argv[]){  // Name, num
     ptr_writer = mmap(0, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, writer_fd, 0);    // Maps the shared memory to the semaphore pointer
     ptr_reader = mmap(0, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, reader_fd, 0);    // Maps the shared memory to the semaphore pointer
     
-    sem_init(&ptr_sem, 1, 1);  // Maps the semaphore to shared memory with chunk_size elements
+    sem_init(ptr_sem, 1, 1);  // Maps the semaphore to shared memory with chunk_size elements
     *ptr_chunk_size = chunk_size; // Writes the value of the chunk size to shared memory
     *ptr_writer = 0; // Writes the value of counter to shared memory
     *ptr_reader = 0; // Writes the value of counter to shared memory
@@ -47,4 +57,4 @@ int main(int argc, char * argv[]){  // Name, num
 
 }
 
-// gcc shmem.c -o shared -Wall -lrt
+// gcc initSharedMem.c -o initShared -Wall -lrt -lpthread

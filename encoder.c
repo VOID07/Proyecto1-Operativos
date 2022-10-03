@@ -7,7 +7,7 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image/stb_image_write.h"
 
-#include "include/memoryWraper.h"
+#include "include/memoryWrapper.h"
 #include "include/pixelStruct.h"
 #include "include/ENV.h"
 
@@ -99,7 +99,7 @@ int main(int argc, char *argv[]){
     printf("Load image with a width of %dpx,a height of %dpx and %d channels\n", width,height,channels);
 
     int response;
-    init();
+    init(); // i
     for (int j = 0; j < height; j++)
     {
         for (int i = 0; i < width; i++)
@@ -131,5 +131,5 @@ int main(int argc, char *argv[]){
     stbi_image_free(image_data);
 }
 
-//Para compilarlo: gcc -std=c17 -Wall -pedantic encoder.c -o encoder -lm
+//Para compilarlo: gcc -std=c17 -Wall -pedantic encoder.c -o encoder -lm -lpthread
 //Para ejecutarlo: ./encoder cameraman.jpg 5000 170

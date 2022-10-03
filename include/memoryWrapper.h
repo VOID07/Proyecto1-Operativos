@@ -1,5 +1,5 @@
-#ifndef MEMORY_WRAPER_H
-#define MEMORY_WRAPER_H
+#ifndef MEMORY_WRAPPER_H
+#define MEMORY_WRAPPER_H
 
 #include <stdio.h>
 #include <sys/mman.h>
@@ -13,5 +13,6 @@
 int push(struct pixel * );
 int pop(struct pixel *);
 int init();
+int main();
 
 #endif
