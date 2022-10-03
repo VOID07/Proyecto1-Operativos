@@ -7,23 +7,27 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image/stb_image_write.h"
 
+#include "include/memoryWraper.h"
+#include "include/pixelStruct.h"
+#include "include/ENV.h"
 
-const char *bit_rep[16] = {
-    [ 0] = "0000", [ 1] = "0001", [ 2] = "0010", [ 3] = "0011",
-    [ 4] = "0100", [ 5] = "0101", [ 6] = "0110", [ 7] = "0111",
-    [ 8] = "1000", [ 9] = "1001", [10] = "1010", [11] = "1011",
-    [12] = "1100", [13] = "1101", [14] = "1110", [15] = "1111",
-};
+
+// const char *bit_rep[16] = {
+//     [ 0] = "0000", [ 1] = "0001", [ 2] = "0010", [ 3] = "0011",
+//     [ 4] = "0100", [ 5] = "0101", [ 6] = "0110", [ 7] = "0111",
+//     [ 8] = "1000", [ 9] = "1001", [10] = "1010", [11] = "1011",
+//     [12] = "1100", [13] = "1101", [14] = "1110", [15] = "1111",
+// };
 
 // Declaración de la estructura para cada pixel 
-struct pixel {
-    uint8_t pixel_value;
-    uint8_t encoded_pixel_value;
-    int i; // Lugar en la estructura que fue introducido 
-    int j;
-    struct tm date;
+// struct pixel {
+//     uint8_t pixel_value;
+//     uint8_t encoded_pixel_value;
+//     int i; // Lugar en la estructura que fue introducido 
+//     int j;
+//     struct tm date;
 
-};
+// };
 
 
 // Función que se encarga de asignar los datos respectivos de cada pixel
@@ -95,7 +99,7 @@ int main(int argc, char *argv[]){
     printf("Load image with a width of %dpx,a height of %dpx and %d channels\n", width,height,channels);
 
     int response;
-
+    init();
     for (int j = 0; j < height; j++)
     {
         for (int i = 0; i < width; i++)
@@ -106,6 +110,8 @@ int main(int argc, char *argv[]){
             printf("Pixel value: %s%s, Encoded pixel value: %s%s, Date: \n", bit_rep[pixeln.pixel_value >> 4],bit_rep[pixeln.pixel_value & 0x0F], bit_rep[pixeln.encoded_pixel_value >> 4],bit_rep[pixeln.encoded_pixel_value & 0x0F]);
             //Se muestra la fecha formateada para verificar que se esté guardando correctamente en el struct
             get_date(pixeln.date);
+
+            push(&pixeln);
    
             printf("continuar? 1=si ó 0=no: ");
             scanf("%d", &response);

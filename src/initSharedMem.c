@@ -39,7 +39,7 @@ int main(int argc, char * argv[]){  // Name, num
     ptr_writer = mmap(0, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, writer_fd, 0);    // Maps the shared memory to the semaphore pointer
     ptr_reader = mmap(0, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, reader_fd, 0);    // Maps the shared memory to the semaphore pointer
     
-    sem_init(&ptr_sem, 1, chunk_size);  // Maps the semaphore to shared memory with chunk_size elements
+    sem_init(&ptr_sem, 1, 1);  // Maps the semaphore to shared memory with chunk_size elements
     *ptr_chunk_size = chunk_size; // Writes the value of the chunk size to shared memory
     *ptr_writer = 0; // Writes the value of counter to shared memory
     *ptr_reader = 0; // Writes the value of counter to shared memory
