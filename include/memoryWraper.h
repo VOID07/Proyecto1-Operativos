@@ -10,7 +10,7 @@
 #include "pixelStruct.h"
 #include "ENV.h"
 
-int push();
+int push(struct pixel *);
 int pop();
 
 #endif
